@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profil Diri - Cachyadi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #060913;
+            --card-bg: rgba(15, 23, 42, 0.72);
+            --accent-blue: #38bdf8;
+            --accent-emerald: #10b981;
+            --accent-gold: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-subtle: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--bg-primary);
+            background-image: 
+                radial-gradient(circle at 15% 20%, rgba(56, 189, 248, 0.14) 0%, transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(16, 185, 129, 0.14) 0%, transparent 45%),
+                linear-gradient(rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 36px 36px, 36px 36px;
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 24px;
+            overflow-x: hidden;
+        }
+
+        /* Animasi masuk halus */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(28px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Animasi berdenyut pada indikator status */
+        @keyframes pulseGlow {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(16, 185, 129, 0);
+            }
+        }
+
+        .container {
+            position: relative;
+            max-width: 560px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-subtle);
+            padding: 44px 36px;
+            border-radius: 26px;
+            box-shadow: 0 30px 60px -15px rgba(0, 0, 0, 0.75);
+            text-align: center;
+            animation: fadeSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        /* Garis cahaya elegan di bagian atas kartu */
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 12%;
+            right: 12%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), var(--accent-emerald), transparent);
+            opacity: 0.8;
+        }
+
+        .container:hover {
+            transform: translateY(-6px);
+            border-color: rgba(56, 189, 248, 0.3);
+            box-shadow: 0 35px 70px -15px rgba(0, 0, 0, 0.85), 0 0 35px rgba(56, 189, 248, 0.12);
+        }
+
+        .profile-wrapper {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .profile-wrapper::after {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-emerald), var(--accent-gold));
+            z-index: -1;
+            opacity: 0.75;
+            transition: transform 0.6s ease, opacity 0.4s ease;
+        }
+
+        .profile-wrapper:hover::after {
+            transform: rotate(180deg) scale(1.04);
+            opacity: 1;
+        }
+
+        img {
+            width: 146px;
+            height: 146px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #0b1120;
+            display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .profile-wrapper:hover img {
+            transform: scale(1.03);
+        }
+
+        .status-dot {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--accent-emerald);
+            border: 3px solid #0b1120;
+            border-radius: 50%;
+            animation: pulseGlow 2.2s infinite;
+            title: "Market Ready";
+        }
+
+        h1 {
+            font-size: 30px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+            background: linear-gradient(to right, #ffffff, #cbd5e1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .role-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 16px;
+            border-radius: 999px;
+            background: rgba(56, 189, 248, 0.08);
+            border: 1px solid rgba(56, 189, 248, 0.2);
+            color: var(--accent-blue);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 28px;
+            transition: all 0.3s ease;
+        }
+
+        .role-tag:hover {
+            background: rgba(56, 189, 248, 0.16);
+            transform: scale(1.03);
+        }
+
+        .info-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 22px;
+            text-align: left;
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 18px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 14px;
+            font-size: 14px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .info-row:hover {
+            background: rgba(56, 189, 248, 0.07);
+            border-color: rgba(56, 189, 248, 0.28);
+            transform: translateX(6px);
+        }
+
+        .info-label {
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .info-value {
+            color: var(--text-main);
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a.info-value:hover {
+            color: var(--accent-blue);
+        }
+
+        .card-section {
+            text-align: left;
+            padding: 20px;
+            border-radius: 16px;
+            background: rgba(15, 23, 42, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            margin-bottom: 16px;
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .card-section:hover {
+            background: rgba(30, 41, 59, 0.78);
+            border-color: rgba(255, 255, 255, 0.16);
+            transform: translateY(-2px);
+        }
+
+        .card-section h3 {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--accent-blue);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card-section.vision h3 {
+            color: var(--accent-emerald);
+        }
+
+        .card-section p {
+            font-size: 14px;
+            line-height: 1.65;
+            color: #cbd5e1;
+        }
+
+        .badges-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 14px;
+        }
+
+        .badge {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 13px;
+            border-radius: 999px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            cursor: default;
+            transition: all 0.25s ease;
+        }
+
+        .badge:hover {
+            background: var(--accent-emerald);
+            color: #060913;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 16px rgba(16, 185, 129, 0.35);
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 32px 20px;
+            }
+            .info-row {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="profile-wrapper">
+            <img src="gambarsaya.jpeg" alt="Foto Profil Cachyadi">
+            <span class="status-dot" title="Active & Market Ready"></span>
+        </div>
+
+        <h1>Cachyadi</h1>
+        <div class="role-tag">Sistem Informasi • Future Trader & Investor</div>
+
+        <div class="info-grid">
+            <div class="info-row">
+                <span class="info-label">Email</span>
+                <a href="mailto:cachyadi@gmail.com" class="info-value">cachyadi@gmail.com</a>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Telepon</span>
+                <a href="tel:081525851149" class="info-value">081525851149</a>
+            </div>
+            <div class="info-row">
+                <span class="info-label">Alamat</span>
+                <span class="info-value">Makassar, Indonesia</span>
+            </div>
+        </div>
+
+        <div class="card-section">
+            <h3>Tentang Saya</h3>
+            <p>Mahasiswa program studi Sistem Informasi di STMIK Kharisma Makassar yang antusias menggabungkan pola pikir analitis berbasis teknologi dengan dunia pasar modal.</p>
+        </div>
+
+        <div class="card-section vision">
+            <h3>Cita-Cita & Visi</h3>
+            <p>Menjadi seorang <strong>Trader</strong> dan <strong>Investor</strong> profesional yang disiplin dalam membaca pergerakan pasar, menerapkan manajemen risiko secara presisi, serta membangun pertumbuhan aset jangka panjang.</p>
+            <div class="badges-container">
+                <span class="badge">Technical & Macro Analysis</span>
+                <span class="badge">Portfolio Growth</span>
+                <span class="badge">Risk Management</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
